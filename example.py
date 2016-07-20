@@ -809,8 +809,8 @@ def fullmap():
         NEXT_LONG = float(lon)
         global origin_lat
         global origin_lon
-        origin_lat = lat
-        origin_lon = lon
+        origin_lat = float(lat)
+        origin_lon = float(lon)
         main()
 
     return render_template(
