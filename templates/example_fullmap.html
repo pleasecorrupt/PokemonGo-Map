@@ -7,10 +7,10 @@
             <title>Flask Google Maps Full Map Example</title>
     </head>
     <body>
-        <h1>Flask Google Maps Full Map Example</h1>
-        <div id="fullmap" style='height:100%;width:100%;top:0;left:0;position:absolute;z-index:200;'>
+        <p id="message">Click the button to get your coordinates.</p>
+        <button onclick="getLocation()">Center map at your location</button>
+        <div id="fullmap" style='height:100%;width:100%;top:35px;left:0;position:absolute;z-index:200;'>
             {{ fullmap.html }}
-
         </div>
         
 
@@ -20,6 +20,21 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
   <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ key }}"></script> -->
 
+  <script type="text/javascript">
+    var x = document.getElementById("message");
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(redirectToMap);
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+    function redirectToMap(position) {
+      window.location.href = "/?latitude="+position.coords.latitude+"&longitude="+position.coords.longitude;
+    }
+  </script>
   <script type="text/javascript">
     var setLabelTime = function(){
         $('.label-countdown').each(function (index, element) {
