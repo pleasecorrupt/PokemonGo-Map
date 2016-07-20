@@ -798,13 +798,21 @@ def getGeolocation():
 @app.route('/')
 def fullmap():
     clear_stale_pokemons()
-    longitude = request.args.get('longitude')
-    latitude = request.args.get('latitude')
-    if latitude is not None and longitude is not None:
+
+    global NEXT_LAT, NEXT_LONG
+
+    lat = flask.request.args.get('latitude', '')
+    lon = flask.request.args.get('longitude', '')
+    if (lat and lon):
+        print('[+] Saved next location as %s,%s' % (lat, lon))
+        NEXT_LAT = float(lat)
+        NEXT_LONG = float(lon)
         global origin_lat
         global origin_lon
         origin_lat = latitude
         origin_lon = longitude
+        main()
+
     return render_template(
         'example_fullmap.html', key=GOOGLEMAPS_KEY, fullmap=get_map(), auto_refresh=auto_refresh)
 
