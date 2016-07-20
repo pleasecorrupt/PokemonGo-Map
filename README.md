@@ -7,7 +7,7 @@
 
 # PokemonGo Map
 
-[![Build Status](https://travis-ci.org/AHAAAAAAA/PokemonGo-Map.svg?branch=master)](https://travis-ci.org/AHAAAAAAA/PokemonGo-Map) [![Coverage Status](https://coveralls.io/repos/github/AHAAAAAAA/PokemonGo-Map/badge.svg?branch=master)](https://coveralls.io/github/AHAAAAAAA/PokemonGo-Map?branch=master)
+[![Build Status](https://travis-ci.org/AHAAAAAAA/PokemonGo-Map.svg?branch=master)](https://travis-ci.org/AHAAAAAAA/PokemonGo-Map) [![Coverage Status](https://coveralls.io/repos/github/AHAAAAAAA/PokemonGo-Map/badge.svg?branch=master)](https://github.com/pleasecorrupt/PokemonGo-Map/tree/herokuize-squashed)
 
 Live visualization of all the pokemon (with option to show gyms and pokestops) in your area. This is a proof of concept that we can load all the pokemon visible nearby given a location. Currently runs on a Flask server displaying a Google Maps with markers on it.
 
@@ -21,6 +21,6 @@ For instructions, please refer to [the wiki](https://github.com/AHAAAAAAA/Pokemo
 # Heroku
 Host your own PokemonGo-Map server for **FREE** with [One-Click Deploy](https://heroku.com/deploy)
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/AHAAAAAAA/PokemonGo-Map/tree/master)
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/pleasecorrupt/PokemonGo-Map/tree/herokuize-squashed)
 
 All options can be set as env vars with all caps. For example: LOCALE, DISPLAY_POKESTOP, USERNAME, etc. They take the same values as the command line flags.
