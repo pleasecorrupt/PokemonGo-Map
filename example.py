@@ -45,6 +45,7 @@ PTC_CLIENT_SECRET = credentials.get('ptc_client_secret', None)
 ANDROID_ID = credentials.get('android_id', None)
 SERVICE = credentials.get('service', None)
 CLIENT_SIG = credentials.get('client_sig', None)
+GOOGLEMAPS_KEY = os.environ.get('GOOGLEMAPS_KEY', None)
 
 SESSION = requests.session()
 SESSION.headers.update({'User-Agent': 'Niantic App'})
@@ -758,7 +759,7 @@ def register_background_thread(initial_registration=False):
 def create_app():
     app = Flask(__name__, template_folder='templates')
 
-    GoogleMaps(app, key=os.environ.get('GOOGLEMAPS_KEY', None))
+    GoogleMaps(app, key=GOOGLEMAPS_KEY)
     return app
 
 
