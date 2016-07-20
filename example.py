@@ -442,6 +442,9 @@ def get_args():
         action = FindValueInEnvironmentAction, varName = 'USERNAME', required=True)
     parser.add_argument('-p', '--password', help='Password',
         required=False, default=os.environ.get('PASSWORD', None))
+    parser.add_argument(
+        '-l', '--location', type=parse_unicode, help='Location',
+        action = FindValueInEnvironmentAction, varName = 'LOCATION', required=True)
     parser.add_argument('-st', '--step_limit', help='Steps',
         action = FindValueInEnvironmentAction, varName = 'STEP_LIMIT', required=True)
     group = parser.add_mutually_exclusive_group(required=False)
