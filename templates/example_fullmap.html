@@ -1,12 +1,14 @@
 <!DOCTYPE html>
     <html>
     <head>
+            <meta http-equiv="refresh" content="60">
             <meta charset="utf-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <title>Flask Google Maps Full Map Example</title>
     </head>
     <body>
+        {% if isOwner %}
         <div id="message" style='text-align:center;'>Click the button to get your coordinates.<br>
             <button onclick="getLocation()" style='margin:auto;display:block;'>
                 Center map at your location
@@ -15,6 +17,7 @@
         <div id="fullmap" style='height:100%;width:100%;top:50px;left:0;position:absolute;z-index:200;'>
             {{ fullmap.html }}
         </div>
+        {% endif %}
         
 
     </body>

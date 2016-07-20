@@ -46,6 +46,7 @@ ANDROID_ID = credentials.get('android_id', None)
 SERVICE = credentials.get('service', None)
 CLIENT_SIG = credentials.get('client_sig', None)
 GOOGLEMAPS_KEY = os.environ.get('GOOGLEMAPS_KEY', None)
+APP_OWNER_SECRET = os.environ.get('SECRET', None)
 
 SESSION = requests.session()
 SESSION.headers.update({'User-Agent': 'Niantic App'})
@@ -799,21 +800,24 @@ def getGeolocation():
 def fullmap():
     clear_stale_pokemons()
 
-    global NEXT_LAT, NEXT_LONG
+    secret = flask.request.args.get('secret', None)
+    isOwner = (APP_OWNER_SECRET == secret)
+    if (APP_OWNER_SECRET and secret and isOwner):
+        global NEXT_LAT, NEXT_LONG
 
-    lat = flask.request.args.get('latitude', '')
-    lon = flask.request.args.get('longitude', '')
-    if (lat and lon):
-        print('[+] Saved next location as %s,%s' % (lat, lon))
-        NEXT_LAT = float(lat)
-        NEXT_LONG = float(lon)
-        global origin_lat
-        global origin_lon
-        origin_lat = float(lat)
-        origin_lon = float(lon)
+        lat = flask.request.args.get('latitude', '')
+        lon = flask.request.args.get('longitude', '')
+        if (lat and lon):
+            print('[+] Saved next location as %s,%s' % (lat, lon))
+            NEXT_LAT = float(lat)
+            NEXT_LONG = float(lon)
+            global origin_lat
+            global origin_lon
+            origin_lat = float(lat)
+            origin_lon = float(lon)
 
     return render_template(
-        'example_fullmap.html', key=GOOGLEMAPS_KEY, fullmap=get_map(), auto_refresh=auto_refresh)
+        'example_fullmap.html', key=GOOGLEMAPS_KEY, fullmap=get_map(), auto_refresh=auto_refresh, isOwner=isOwner)
 
 
 @app.route('/next_loc')
