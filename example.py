@@ -798,7 +798,7 @@ def getGeolocation():
 @app.route('/')
 def fullmap():
     clear_stale_pokemons()
-    longitude = request.form.get('longitude')
+    longitude = request.args.get('longitude')
     latitude = request.args.get('latitude')
     return render_template(
         'example_fullmap.html', key=GOOGLEMAPS_KEY, fullmap=get_map(latitude, longitude), auto_refresh=auto_refresh)
