@@ -14,12 +14,10 @@
                 Center map at your location
             </button>
         </div>
+        {% endif %}
         <div id="fullmap" style='height:100%;width:100%;top:50px;left:0;position:absolute;z-index:200;'>
             {{ fullmap.html }}
         </div>
-        {% endif %}
-        
-
     </body>
 {{ fullmap.js }}
 <!-- Webdesign 101: scripts at the end make the page load faster -->
