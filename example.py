@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import flask
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, flash
 from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map
 from flask_googlemaps import icons
@@ -21,7 +21,7 @@ import time
 from google.protobuf.internal import encoder
 from google.protobuf.message import DecodeError
 from s2sphere import *
-from datetime import datetime
+from datetime import datetime, timedelta
 from geopy.geocoders import GoogleV3
 from gpsoauth import perform_master_login, perform_oauth
 from geopy.exc import GeocoderTimedOut, GeocoderServiceError
@@ -53,6 +53,7 @@ SESSION = requests.session()
 SESSION.headers.update({'User-Agent': 'Niantic App'})
 SESSION.verify = False
 
+DOWNTIME = datetime(1990,1,1)
 global_password = None
 global_token = None
 access_token = None
@@ -199,14 +200,17 @@ def get_location_coords():
 
 
 def retrying_api_req(service, api_endpoint, access_token, *args, **kwargs):
+    global DOWNTIME
     while True:
         try:
             response = api_req(service, api_endpoint, access_token, *args,
                                **kwargs)
             if response:
                 return response
+            DOWNTIME = datetime.now()
             debug('retrying_api_req: api_req returned None, retrying')
         except (InvalidURL, ConnectionError, DecodeError), e:
+            DOWNTIME = datetime.now()
             debug('retrying_api_req: request error ({}), retrying'.format(
                 str(e)))
         time.sleep(1)
@@ -834,6 +838,12 @@ def getGeolocation():
 def fullmap():
     clear_stale_pokemons()
 
+    global DOWNTIME
+    current_date = datetime.now()
+    check = current_date - DOWNTIME
+
+    if current_date > DOWNTIME and check < timedelta(minutes=5):
+        flash('Pokemon Go Servers currently experiencing downtime or are currently unstable.')
     secret = flask.request.args.get('secret', None)
     isOwner = (APP_OWNER_SECRET == secret)
     if (APP_OWNER_SECRET and secret and isOwner):
@@ -985,4 +995,5 @@ class FindValueInEnvironmentAction(argparse.Action):
 if __name__ == '__main__':
     args = get_args()
     register_background_thread(initial_registration=True)
+    app.secret_key = 'super secret key'
     app.run(debug=True, threaded=True, host=args.host, port=args.port)

@@ -8,15 +8,22 @@
             <title>Flask Google Maps Full Map Example</title>
     </head>
     <body>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <h2 class=flashes style="color:red;text-align:center;">{{ message }}</h2>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
         {% if isOwner %}
         <div id="message" style='text-align:center;'>Click the button to get your coordinates.<br>
             <button onclick="getLocation()" style='margin:auto;display:block;'>
                 Center map at your location
             </button>
         </div>
-        <div id="fullmap" style='height:100%;width:100%;top:50px;left:0;position:absolute;z-index:200;'>
+        <div id="fullmap" style='height:100%;width:100%;top:50px;left:0;position:absolute;z-index:-1;'>
         {% else %}
-        <div id="fullmap" style='height:100%;width:100%;top:0px;left:0;position:absolute;z-index:200;'>
+        <div id="fullmap" style='height:100%;width:100%;top:0px;left:0;position:absolute;z-index:-1;'>
         {% endif %}
             {{ fullmap.html }}
         </div>
