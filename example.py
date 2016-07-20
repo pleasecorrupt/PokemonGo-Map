@@ -800,8 +800,11 @@ def fullmap():
     clear_stale_pokemons()
     longitude = request.args.get('longitude')
     latitude = request.args.get('latitude')
+    if latitude is not None and longitude is not None:
+        origin_lat = latitude
+        origin_lon = longitude
     return render_template(
-        'example_fullmap.html', key=GOOGLEMAPS_KEY, fullmap=get_map(latitude, longitude), auto_refresh=auto_refresh)
+        'example_fullmap.html', key=GOOGLEMAPS_KEY, fullmap=get_map(), auto_refresh=auto_refresh)
 
 
 @app.route('/next_loc')
@@ -904,17 +907,12 @@ def get_pokemarkers():
     return pokeMarkers
 
 
-def get_map(latitudeFromRequest, longitudeFromRequest):
-    latitude = latitudeFromRequest
-    longitude = longitudeFromRequest
-    if latitude is None or longitude is None:
-        latitude = origin_lat
-        longitude = origin_lon
+def get_map():
     fullmap = Map(
         identifier="fullmap2",
         style='height:100%;width:100%;top:0;left:0;position:absolute;z-index:200;',
-        lat=latitude,
-        lng=longitude,
+        lat=origin_lat,
+        lng=origin_lon,
         markers=get_pokemarkers(),
         zoom='15', )
     return fullmap
