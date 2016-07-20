@@ -7,8 +7,11 @@
             <title>Flask Google Maps Full Map Example</title>
     </head>
     <body>
-        <p id="message">Click the button to get your coordinates.</p>
-        <button onclick="getLocation()">Center map at your location</button>
+        <div id="message" style='text-align:center;'>Click the button to get your coordinates.<br>
+            <button onclick="getLocation()" style='margin:auto;display:block;'>
+                Center map at your location
+            </button>
+        </div>
         <div id="fullmap" style='height:100%;width:100%;top:35px;left:0;position:absolute;z-index:200;'>
             {{ fullmap.html }}
         </div>
