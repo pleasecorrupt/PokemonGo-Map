@@ -801,6 +801,8 @@ def fullmap():
     longitude = request.args.get('longitude')
     latitude = request.args.get('latitude')
     if latitude is not None and longitude is not None:
+        global origin_lat
+        global origin_lon
         origin_lat = latitude
         origin_lon = longitude
     return render_template(
