@@ -811,7 +811,6 @@ def fullmap():
         global origin_lon
         origin_lat = float(lat)
         origin_lon = float(lon)
-        main()
 
     return render_template(
         'example_fullmap.html', key=GOOGLEMAPS_KEY, fullmap=get_map(), auto_refresh=auto_refresh)
