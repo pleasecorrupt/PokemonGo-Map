@@ -41,7 +41,7 @@ APP = 'com.nianticlabs.pokemongo'
 with open('credentials.json') as file:
 	credentials = json.load(file)
 
-MT = False
+mt = False
 PTC_CLIENT_SECRET = credentials.get('ptc_client_secret', None)
 ANDROID_ID = credentials.get('android_id', None)
 SERVICE = credentials.get('service', None)
@@ -478,7 +478,7 @@ def get_args():
         '--multithreading',
         help='Enable multithreaded search',
         action='store_true',
-        default=os.environ.get('MT', False))
+        default=os.environ.get('mt', False))
     parser.add_argument(
         '-H',
         '--host',
