@@ -439,8 +439,6 @@ def get_args():
         '-a', '--auth_service', type=str.lower, help='Auth Service', default=os.environ.get('AUTH_SERVICE', 'ptc'))
     parser.add_argument('-u', '--username', help='Username',
         action = FindValueInEnvironmentAction, varName = 'USERNAME', required=True)
-    parser.add_argument('-k', '--key', help='Key',
-        action = FindValueInEnvironmentAction, varName = 'GOOGLEMAPS_KEY', required=True)
     parser.add_argument('-p', '--password', help='Password',
         required=False, default=os.environ.get('PASSWORD', None))
     parser.add_argument('-st', '--step_limit', help='Steps',
@@ -760,7 +758,7 @@ def register_background_thread(initial_registration=False):
 def create_app():
     app = Flask(__name__, template_folder='templates')
 
-    GoogleMaps(app, key=GOOGLEMAPS_KEY)
+    GoogleMaps(app, key=os.environ.get('GOOGLEMAPS_KEY', None))
     return app
 
 
@@ -789,6 +787,9 @@ def config():
     }
     return json.dumps(center)
 
+@app.route('/ha')
+def getGeolocation():
+    return render_template("geolocation.html")
 
 @app.route('/')
 def fullmap():
