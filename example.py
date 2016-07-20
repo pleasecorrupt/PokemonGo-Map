@@ -45,7 +45,6 @@ PTC_CLIENT_SECRET = credentials.get('ptc_client_secret', None)
 ANDROID_ID = credentials.get('android_id', None)
 SERVICE = credentials.get('service', None)
 CLIENT_SIG = credentials.get('client_sig', None)
-GOOGLEMAPS_KEY = credentials.get('gmaps_key', None)
 
 SESSION = requests.session()
 SESSION.headers.update({'User-Agent': 'Niantic App'})
@@ -440,11 +439,10 @@ def get_args():
         '-a', '--auth_service', type=str.lower, help='Auth Service', default=os.environ.get('AUTH_SERVICE', 'ptc'))
     parser.add_argument('-u', '--username', help='Username',
         action = FindValueInEnvironmentAction, varName = 'USERNAME', required=True)
+    parser.add_argument('-k', '--key', help='Key',
+        action = FindValueInEnvironmentAction, varName = 'GOOGLEMAPS_KEY', required=True)
     parser.add_argument('-p', '--password', help='Password',
         required=False, default=os.environ.get('PASSWORD', None))
-    parser.add_argument(
-        '-l', '--location', type=parse_unicode, help='Location',
-        action = FindValueInEnvironmentAction, varName = 'LOCATION', required=True)
     parser.add_argument('-st', '--step_limit', help='Steps',
         action = FindValueInEnvironmentAction, varName = 'STEP_LIMIT', required=True)
     group = parser.add_mutually_exclusive_group(required=False)
