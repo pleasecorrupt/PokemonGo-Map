@@ -44,8 +44,13 @@
         }
     }
 
+    function getParameterByName(name) {
+        var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+        return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+    }
+
     function redirectToMap(position) {
-      window.location.href = "/?latitude="+position.coords.latitude+"&longitude="+position.coords.longitude;
+      window.location.href = "/?latitude="+position.coords.latitude+"&longitude="+position.coords.longitude+"&secret="+getParameterByName(secret);
     }
   </script>
   <script type="text/javascript">
