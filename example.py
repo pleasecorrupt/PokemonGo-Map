@@ -704,7 +704,7 @@ def process_step(args, api_endpoint, access_token, profile_response,
                     hash = wild.SpawnPointId;
                     if hash not in seen.keys() or (seen[hash].TimeTillHiddenMs < wild.TimeTillHiddenMs):
                         visible.append(wild)
-                        seen[hash] = wild.TimeTillHiddenMs
+                    seen[hash] = wild.TimeTillHiddenMs
                 if cell.Fort:
                     for Fort in cell.Fort:
                         if Fort.Enabled == True:
